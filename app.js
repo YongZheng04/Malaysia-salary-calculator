@@ -41,7 +41,7 @@ function calculate() {
     let basic = parseFloat(document.getElementById('basic').value) || 0;
     let ot = parseFloat(document.getElementById('ot').value) || 0;
     gross = basic + ot;
-    document.getElementById('total').innerText = gross.toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById('total').innerText = gross.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     let age = document.getElementById('age').value;
 
@@ -51,18 +51,18 @@ function calculate() {
 
     // For accurate banding for low wages
     let upper = Math.ceil(gross / 20) * 20;
-    epf_employee = gross <= 20000 ? Math.ceil(upper * epf_employee_rate) : Math.round(gross * epf_employee_rate);
-    epf_employer = gross <= 20000 ? Math.ceil(upper * epf_employer_rate) : Math.round(gross * epf_employer_rate);
+    epf_employee = gross <= 20000 ? upper * epf_employee_rate : gross * epf_employee_rate;
+    epf_employer = gross <= 20000 ? upper * epf_employer_rate : gross * epf_employer_rate;
 
     // SOCSO and EIS rates
     let wage_cap = Math.min(gross, 6000);
     let socso_employee_rate = age === 'less' ? 0.005 : 0;
     let socso_employer_rate = age === 'less' ? 0.0175 : 0.0125;
     let eis_rate = age === 'less' ? 0.002 : 0;
-    socso_employee = Math.round(wage_cap * socso_employee_rate * 10) / 10;
-    socso_employer = Math.round(wage_cap * socso_employer_rate * 10) / 10;
-    eis_employee = Math.round(wage_cap * eis_rate * 10) / 10;
-    eis_employer = Math.round(wage_cap * eis_rate * 10) / 10;
+    socso_employee = wage_cap * socso_employee_rate;
+    socso_employer = wage_cap * socso_employer_rate;
+    eis_employee = wage_cap * eis_rate;
+    eis_employer = wage_cap * eis_rate;
 
     // PCB (approximate)
     let annual_gross = gross * 12;
@@ -73,26 +73,26 @@ function calculate() {
     let annual_taxable = annual_gross - annual_deductions;
     let annual_chargeable = Math.max(0, annual_taxable - 9000);
     let annual_tax = calculateAnnualTax(annual_chargeable);
-    calculated_pcb = Math.max(0, Math.round(annual_tax / 12 * 100) / 100);
+    calculated_pcb = Math.max(0, annual_tax / 12);
 
     // Display contributions
     document.getElementById('employee-epf').querySelector('.label').innerText = `EPF (${(epf_employee_rate * 100).toFixed(1)}% RM)`;
-    document.getElementById('employee-epf').querySelector('.value').innerText = epf_employee.toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById('employee-epf').querySelector('.value').innerText = epf_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     document.getElementById('employee-socso').querySelector('.label').innerText = `SOCSO (${(socso_employee_rate * 100).toFixed(1)}% RM)`;
-    document.getElementById('employee-socso').querySelector('.value').innerText = socso_employee.toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById('employee-socso').querySelector('.value').innerText = socso_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     document.getElementById('employee-eis').querySelector('.label').innerText = `SIP (${(eis_rate * 100).toFixed(1)}% RM)`;
-    document.getElementById('employee-eis').querySelector('.value').innerText = eis_employee.toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById('employee-eis').querySelector('.value').innerText = eis_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     document.getElementById('employer-epf').querySelector('.label').innerText = `EPF (${(epf_employer_rate * 100).toFixed(1)}% RM)`;
-    document.getElementById('employer-epf').querySelector('.value').innerText = epf_employer.toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById('employer-epf').querySelector('.value').innerText = epf_employer.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     document.getElementById('employer-socso').querySelector('.label').innerText = `SOCSO (${(socso_employer_rate * 100).toFixed(2)}% RM)`;
-    document.getElementById('employer-socso').querySelector('.value').innerText = socso_employer.toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById('employer-socso').querySelector('.value').innerText = socso_employer.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     document.getElementById('employer-eis').querySelector('.label').innerText = `SIP (${(eis_rate * 100).toFixed(1)}% RM)`;
-    document.getElementById('employer-eis').querySelector('.value').innerText = eis_employer.toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById('employer-eis').querySelector('.value').innerText = eis_employer.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     // Set PCB input to calculated value
     document.getElementById('pcb-input').value = calculated_pcb.toFixed(2);
@@ -104,5 +104,5 @@ function computeNet() {
     let pcb = parseFloat(document.getElementById('pcb-input').value) || 0;
     let total_employee_deductions = epf_employee + socso_employee + eis_employee + pcb;
     net_salary = gross - total_employee_deductions;
-    document.getElementById('net-pay').innerText = net_salary.toLocaleString('en-MY', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById('net-pay').innerText = net_salary.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
