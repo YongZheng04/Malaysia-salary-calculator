@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Salary Calculator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>MALAYSIA SALARY CALCULATOR</h1>
+        <div class="personal-info">
+            <label>Name: <input type="text" id="name" oninput="calculate()"></label>
+            <label>IC: <input type="text" id="ic" oninput="calculate()"></label>
+            <label>Age: <select id="age" onchange="calculate()">
+                <option value="less">Less than 60</option>
+                <option value="more">60 and above</option>
+            </select></label>
+        </div>
+        <div class="section-box gross-salary">
+            <h2>GROSS SALARY</h2>
+            <label>Basic Salary (RM): <input type="number" id="basic" step="0.01" min="0" oninput="calculate()"></label>
+            <label>OT Salary (RM): <input type="number" id="ot" step="0.01" min="0" oninput="calculate()"></label>
+        </div>
+        <div class="total">
+            <label>Total (RM): <span id="total">0.00</span></label>
+        </div>
+        <div class="contributions">
+            <div class="contribution-box">
+                <h2>EMPLOYEE (WORKER)</h2>
+                <div id="employee-epf" class="contribution-item">
+                    <span class="label"></span>
+                    <span class="colon">:</span>
+                    <span class="value"></span>
+                </div>
+                <div id="employee-socso" class="contribution-item">
+                    <span class="label"></span>
+                    <span class="colon">:</span>
+                    <span class="value"></span>
+                </div>
+                <div id="employee-eis" class="contribution-item">
+                    <span class="label"></span>
+                    <span class="colon">:</span>
+                    <span class="value"></span>
+                </div>
+                <div id="employee-pcb" class="contribution-item">
+                    <span class="label">PCB (RM)</span>
+                    <span class="colon">:</span>
+                    <input class="value" id="pcb-input" type="number" step="0.01" oninput="computeNet()">
+                </div>
+            </div>
+            <div class="contribution-box">
+                <h2>EMPLOYER (BOSS)</h2>
+                <div id="employer-epf" class="contribution-item">
+                    <span class="label"></span>
+                    <span class="colon">:</span>
+                    <span class="value"></span>
+                </div>
+                <div id="employer-socso" class="contribution-item">
+                    <span class="label"></span>
+                    <span class="colon">:</span>
+                    <span class="value"></span>
+                </div>
+                <div id="employer-eis" class="contribution-item">
+                    <span class="label"></span>
+                    <span class="colon">:</span>
+                    <span class="value"></span>
+                </div>
+            </div>
+        </div>
+        <div class="net-pay">
+            <label>NET PAY SALARY (RM): <span id="net-pay">0.00</span></label>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
