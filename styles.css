@@ -156,17 +156,59 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-@media (max-width: 768px) {
+
+/* Tablet (768px to 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        padding: 15px;
+        max-height: 90vh;
+    }
+    h1 {
+        font-size: 1.6rem;
+    }
+    .personal-info {
+        gap: 12px;
+    }
+    .personal-info label {
+        min-width: 160px;
+    }
+    .contributions {
+        gap: 15px;
+    }
+    .contribution-item {
+        grid-template-columns: minmax(160px, auto) 20px 1fr;
+    }
+    .contribution-item input.value {
+        width: 90px;
+    }
+    .net-pay {
+        font-size: 1.2rem;
+    }
+}
+
+/* Phone and Small Tablets (<768px) */
+@media (max-width: 767px) {
     .container {
         padding: 15px;
         max-height: none;
+        width: 100%;
+        margin: 10px;
     }
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        margin-bottom: 20px;
     }
     .personal-info {
         flex-direction: column;
         gap: 10px;
+    }
+    .personal-info label {
+        min-width: 0;
+        width: 100%;
+    }
+    .personal-info input, .personal-info select {
+        width: 100%;
+        margin-left: 0;
     }
     .contributions {
         flex-direction: column;
@@ -175,28 +217,36 @@ h1 {
     .section-box, .contribution-box {
         min-height: auto;
     }
-    .net-pay {
-        font-size: 1.1rem;
-    }
     .contribution-item {
-        grid-template-columns: minmax(150px, auto) 20px 1fr;
-    }
-}
-@media (max-width: 480px) {
-    .container {
-        padding: 10px;
-        width: 100%;
-    }
-    h1 {
-        font-size: 1.3rem;
-    }
-    .personal-info label, .gross-salary label, .contribution-item {
-        font-size: 0.85rem;
-    }
-    .contribution-item {
-        grid-template-columns: minmax(120px, auto) 20px 1fr;
+        grid-template-columns: minmax(140px, auto) 20px 1fr;
     }
     .contribution-item input.value {
         width: 80px;
+    }
+    .net-pay {
+        font-size: 1.1rem;
+    }
+}
+
+/* Small Phones (<480px) */
+@media (max-width: 479px) {
+    .container {
+        padding: 10px;
+        border-radius: 8px;
+    }
+    h1 {
+        font-size: 1.2rem;
+    }
+    .personal-info label, .gross-salary label, .contribution-item {
+        font-size: 0.8rem;
+    }
+    .contribution-item {
+        grid-template-columns: minmax(100px, auto) 15px 1fr;
+    }
+    .contribution-item input.value {
+        width: 70px;
+    }
+    .net-pay {
+        font-size: 1rem;
     }
 }
