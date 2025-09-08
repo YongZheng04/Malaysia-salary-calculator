@@ -415,7 +415,7 @@ const epfTable = [
 
 // SOCSO contribution table for below 60 (First Category)
 const socsoTableBelow60 = [
-    { minWage: 0, maxWage: 30, employer: 0.40, employee: 0.10 },
+    { minWage: 0.01, maxWage: 30, employer: 0.40, employee: 0.10 },
     { minWage: 30.01, maxWage: 50, employer: 0.70, employee: 0.20 },
     { minWage: 50.01, maxWage: 70, employer: 1.10, employee: 0.30 },
     { minWage: 70.01, maxWage: 100, employer: 1.50, employee: 0.40 },
@@ -650,3 +650,4 @@ function computeNet() {
 
 // Trigger initial calculation
 window.onload = calculate;
+
