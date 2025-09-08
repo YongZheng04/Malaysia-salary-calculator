@@ -244,6 +244,7 @@ h1 {
     .container {
         padding: 10px;
         border-radius: 8px;
+        overflow-y: auto; /* Ensure container scrolls on overflow */
     }
     h1 {
         font-size: 1.2rem;
@@ -263,3 +264,4 @@ h1 {
         max-width: 250px;
     }
 }
+
