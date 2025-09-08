@@ -228,26 +228,3 @@ h1 {
         font-size: 1.1rem;
     }
 }
-
-/* Small Phones (<480px) */
-@media (max-width: 479px) {
-    .container {
-        padding: 10px;
-        border-radius: 8px;
-    }
-    h1 {
-        font-size: 1.2rem;
-    }
-    .personal-info label, .gross-salary label, .contribution-item {
-        font-size: 0.8rem;
-    }
-    .contribution-item {
-        grid-template-columns: minmax(100px, auto) 15px 1fr;
-    }
-    .contribution-item input.value {
-        width: 70px;
-    }
-    .net-pay {
-        font-size: 1rem;
-    }
-}
