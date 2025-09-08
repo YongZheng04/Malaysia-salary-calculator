@@ -609,23 +609,31 @@ function calculate() {
     let annual_tax = calculateAnnualTax(annual_chargeable);
     calculated_pcb = Math.max(0, annual_tax / 12);
 
+    // Calculate percentages
+    let epf_employee_percent = gross > 0 ? (epf_employee / gross) * 100 : 0;
+    let socso_employee_percent = gross > 0 ? (socso_employee / gross) * 100 : 0;
+    let eis_employee_percent = gross > 0 ? (eis_employee / gross) * 100 : 0;
+    let epf_employer_percent = gross > 0 ? (epf_employer / gross) * 100 : 0;
+    let socso_employer_percent = gross > 0 ? (socso_employer / gross) * 100 : 0;
+    let eis_employer_percent = gross > 0 ? (eis_employer / gross) * 100 : 0;
+
     // Display
-    document.getElementById('employee-epf').querySelector('.label').innerText = `EPF (11.0% RM)`;
+    document.getElementById('employee-epf').querySelector('.label').innerText = `EPF (${epf_employee_percent.toFixed(2)}% RM)`;
     document.getElementById('employee-epf').querySelector('.value').innerText = epf_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    document.getElementById('employee-socso').querySelector('.label').innerText = `SOCSO (0.5% RM)`;
+    document.getElementById('employee-socso').querySelector('.label').innerText = `SOCSO (${socso_employee_percent.toFixed(2)}% RM)`;
     document.getElementById('employee-socso').querySelector('.value').innerText = socso_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    document.getElementById('employee-eis').querySelector('.label').innerText = `SIP (0.2% RM)`;
+    document.getElementById('employee-eis').querySelector('.label').innerText = `SIP (${eis_employee_percent.toFixed(2)}% RM)`;
     document.getElementById('employee-eis').querySelector('.value').innerText = eis_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    document.getElementById('employer-epf').querySelector('.label').innerText = `EPF (13.0% RM)`;
+    document.getElementById('employer-epf').querySelector('.label').innerText = `EPF (${epf_employer_percent.toFixed(2)}% RM)`;
     document.getElementById('employer-epf').querySelector('.value').innerText = epf_employer.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    document.getElementById('employer-socso').querySelector('.label').innerText = `SOCSO (1.75% RM)`;
+    document.getElementById('employer-socso').querySelector('.label').innerText = `SOCSO (${socso_employer_percent.toFixed(2)}% RM)`;
     document.getElementById('employer-socso').querySelector('.value').innerText = socso_employer.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    document.getElementById('employer-eis').querySelector('.label').innerText = `SIP (0.2% RM)`;
+    document.getElementById('employer-eis').querySelector('.label').innerText = `SIP (${eis_employer_percent.toFixed(2)}% RM)`;
     document.getElementById('employer-eis').querySelector('.value').innerText = eis_employer.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     document.getElementById('pcb-input').value = calculated_pcb.toFixed(2);
