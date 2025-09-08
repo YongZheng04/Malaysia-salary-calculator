@@ -20,7 +20,7 @@ body {
     width: 95%;
     max-width: 900px;
     max-height: 95vh;
-    overflow-y: auto;
+    overflow-y: auto; /* Enable scrolling on phone */
     text-align: center;
 }
 h1 {
@@ -190,9 +190,10 @@ h1 {
 @media (max-width: 767px) {
     .container {
         padding: 15px;
-        max-height: none;
+        max-height: none; /* Remove max-height to allow full scrolling */
         width: 100%;
         margin: 10px;
+        overflow-y: auto; /* Ensure scrolling is enabled */
     }
     h1 {
         font-size: 1.4rem;
