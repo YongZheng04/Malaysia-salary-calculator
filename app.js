@@ -651,3 +651,37 @@ function computeNet() {
 // Trigger initial calculation
 window.onload = calculate;
 
+// Function to save data to Google Sheets
+function saveToGoogleSheets() {
+    const data = {
+        name: document.getElementById('name').value,
+        ic: document.getElementById('ic').value,
+        age: document.getElementById('age').value === 'less' ? 'Less than 60' : '60 and above',
+        basic: parseFloat(document.getElementById('basic').value) || 0,
+        ot: parseFloat(document.getElementById('ot').value) || 0,
+        total: gross,
+        employee_epf: epf_employee,
+        employee_socso: socso_employee,
+        employee_sip: eis_employee,
+        pcb: parseFloat(document.getElementById('pcb-input').value) || 0,
+        employer_epf: epf_employer,
+        employer_socso: socso_employer,
+        employer_sip: eis_employer,
+        net_pay: net_salary
+    };
+
+    fetch('https://script.google.com/macros/s/AKfycbwqspd2Q1LTDwEjQlppPR0mDnaBEWXjTUAoXOE808OQet1MhAj0Nlgo9cbDF5p7iipybA/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }).then(() => {
+        alert('Data saved to Google Sheets!');
+    }).catch(error => {
+        console.error('Error saving data:', error);
+        alert('Error saving data. Check console for details.');
+    });
+}
