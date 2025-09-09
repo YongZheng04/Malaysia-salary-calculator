@@ -21,7 +21,7 @@
         <div class="section-box gross-salary">
             <h2>GROSS SALARY</h2>
             <label>Basic Salary (RM): <input type="number" id="basic" step="0.01" min="0" oninput="calculate()"></label>
-            <label>OT Salary (RM): <input type="number" id="ot" step="0.01" min="0" oninput="calculate()"></label>
+            <label>O.T. Salary (RM): <input type="number" id="ot" step="0.01" min="0" oninput="calculate()"></label>
         </div>
         <div class="total">
             <label>Total (RM): <span id="total">0.00</span></label>
@@ -72,9 +72,9 @@
         <div class="net-pay">
             <label>NET PAY SALARY (RM): <span id="net-pay">0.00</span></label>
         </div>
+        <button id="save-button" onclick="saveToGoogleSheets()">Save to Google Sheets</button>
     </div>
 
     <script src="app.js"></script>
 </body>
 </html>
-
