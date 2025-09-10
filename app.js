@@ -651,13 +651,33 @@ function computeNet() {
 // Trigger initial calculation
 window.onload = calculate;
 
+// Function to reset form
+function resetForm() {
+    document.getElementById('name').value = '';
+    document.getElementById('ic').value = '';
+    document.getElementById('age').value = 'less';
+    document.getElementById('basic').value = '';
+    document.getElementById('ot').value = '';
+    document.getElementById('pcb-input').value = '';
+    calculate(); // Recalculate to reset displayed values
+}
+
 // Function to save data to Google Sheets
 function saveToGoogleSheets() {
+    const name = document.getElementById('name').value.trim();
+    const ic = document.getElementById('ic').value.trim();
+    const basic = parseFloat(document.getElementById('basic').value) || 0;
+
+    if (!name || !ic || basic <= 0) {
+        alert('Please fill in Name, IC, and Basic Salary.');
+        return;
+    }
+
     const data = {
-        name: document.getElementById('name').value,
-        ic: document.getElementById('ic').value,
+        name: name,
+        ic: ic,
         age: document.getElementById('age').value === 'less' ? 'Less than 60' : '60 and above',
-        basic: parseFloat(document.getElementById('basic').value) || 0,
+        basic: basic,
         ot: parseFloat(document.getElementById('ot').value) || 0,
         total: gross,
         employee_epf: epf_employee,
@@ -684,4 +704,41 @@ function saveToGoogleSheets() {
         console.error('Error saving data:', error);
         alert('Error saving data. Check console for details.');
     });
+}
+
+// Function to export to PDF with plain text
+function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const currentDate = new Date().toLocaleDateString('en-MY'); // e.g., 10/09/2025
+
+    const text = `
+MALAYSIA SALARY CALCULATOR
+
+Date                          : ${currentDate}
+Name                        : ${document.getElementById('name').value || ''}
+IC                              : ${document.getElementById('ic').value || ''}
+Age                           : ${document.getElementById('age').value === 'less' ? 'Less than 60' : '60 and above'}
+
+GROSS SALARY
+Basic Salary (RM)    : ${parseFloat(document.getElementById('basic').value) || 0}
+O.T. Salary (RM)      : ${parseFloat(document.getElementById('ot').value) || 0}
+Total (RM)                : ${gross.toFixed(2)}
+
+EMPLOYEE (WORKER)
+EPF (RM)                 : ${epf_employee.toFixed(2)}
+SOCSO (RM)           : ${socso_employee.toFixed(2)}
+SIP (RM)                  : ${eis_employee.toFixed(2)}
+PCB (RM)                : ${parseFloat(document.getElementById('pcb-input').value) || 0}
+
+EMPLOYER (BOSS)
+EPF (RM)                 : ${epf_employer.toFixed(2)}
+SOCSO (RM)           : ${socso_employer.toFixed(2)}
+SIP (RM)                  : ${eis_employer.toFixed(2)}
+
+NET PAY SALARY (RM) : ${net_salary.toFixed(2)}
+    `.trim();
+
+    doc.text(text, 10, 10); // Start text at top-left (10, 10)
+    doc.save('salary_record.pdf');
 }
