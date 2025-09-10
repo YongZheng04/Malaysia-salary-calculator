@@ -10,52 +10,51 @@ body {
     justify-content: center;
     align-items: flex-start;
     background: linear-gradient(to bottom, #e8f0f2, #c9d6df);
-    overflow-y: auto; /* Changed from hidden to allow body scrolling */
+    overflow-y: auto;
 }
 .container {
     background: #ffffff;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    width: 95%;
+    width: 90%;
     max-width: 900px;
-    /* Removed max-height to allow content to expand naturally */
-    overflow-y: auto; /* Ensure container can scroll if content overflows */
+    overflow-y: auto;
     text-align: center;
-    margin-top: 10px;
+    margin: 20px auto;
 }
 h1 {
     color: #34495e;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin-bottom: 25px;
-    font-size: 1.8rem;
+    font-size: 2rem;
 }
-.personal-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-.personal-info label {
-    flex: 1;
-    min-width: 180px;
+.personal-info label,
+.gross-salary label {
     display: flex;
     align-items: center;
+    margin-bottom: 15px;
     font-weight: bold;
     color: #555;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
-.personal-info input, .personal-info select {
+.personal-info input,
+.personal-info select,
+.gross-salary input {
     flex: 1;
+    min-width: 200px;
     margin-left: 10px;
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 6px;
     transition: border-color 0.3s ease;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    text-align: right;
 }
-.personal-info input:focus, .personal-info select:focus {
+.personal-info input:focus,
+.personal-info select:focus,
+.gross-salary input:focus {
     border-color: #27ae60;
     outline: none;
 }
@@ -69,35 +68,14 @@ h1 {
 }
 .section-box h2 {
     color: #27ae60;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-.gross-salary label {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #555;
-    font-size: 0.95rem;
-}
-.gross-salary input {
-    flex: 1;
-    margin-left: 10px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    transition: border-color 0.3s ease;
-    font-size: 0.95rem;
-}
-.gross-salary input:focus {
-    border-color: #27ae60;
-    outline: none;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
 }
 .total {
     font-weight: bold;
     color: #555;
     margin-bottom: 20px;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 .contributions {
     display: flex;
@@ -114,16 +92,16 @@ h1 {
 }
 .contribution-box h2 {
     color: #27ae60;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 15px;
 }
 .contribution-item {
     display: grid;
     grid-template-columns: minmax(180px, auto) 20px 1fr;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #333;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 .contribution-item .label {
     text-align: right;
@@ -144,53 +122,105 @@ h1 {
     border: 1px dashed #ccc;
     background: transparent;
     width: 100px;
-    padding: 0;
-    font-size: 0.95rem;
+    padding: 5px;
+    font-size: 1rem;
     text-align: right;
 }
 .net-pay {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #27ae60;
     background: #f9fbfc;
-    padding: 10px;
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    bottom: 20px;
-    margin: 0 auto;
-    width: 90%;
-    max-width: 400px;
+    margin-bottom: 20px;
+}
+#save-button, #reset-button, #export-pdf {
+    display: block;
+    margin: 10px auto;
+    padding: 12px 25px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 200px;
+}
+#save-button:hover, #reset-button:hover, #export-pdf:hover {
+    background-color: #219653;
 }
 
-/* Tablet (768px to 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
+/* PC (1024px and above) */
+@media (min-width: 1024px) {
     .container {
-        padding: 15px;
-        max-height: 90vh;
+        padding: 30px;
+        max-width: 1000px;
     }
     h1 {
-        font-size: 1.6rem;
+        font-size: 2.5rem;
     }
-    .personal-info {
-        gap: 12px;
+    .personal-info label,
+    .gross-salary label {
+        font-size: 1.1rem;
     }
-    .personal-info label {
-        min-width: 160px;
+    .personal-info input,
+    .personal-info select,
+    .gross-salary input {
+        min-width: 250px;
+        padding: 12px;
+    }
+    .section-box h2 {
+        font-size: 1.3rem;
+    }
+    .contribution-item {
+        grid-template-columns: minmax(200px, auto) 20px 1fr;
+    }
+    .net-pay {
+        font-size: 1.8rem;
+    }
+    #save-button, #reset-button, #export-pdf {
+        font-size: 1.2rem;
+        width: 250px;
+    }
+}
+
+/* Tablet (768px to 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 20px;
+        max-width: 800px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    .personal-info label,
+    .gross-salary label {
+        font-size: 1rem;
+    }
+    .personal-info input,
+    .personal-info select,
+    .gross-salary input {
+        min-width: 200px;
+        padding: 10px;
+    }
+    .section-box h2 {
+        font-size: 1.2rem;
     }
     .contributions {
+        flex-direction: column;
         gap: 15px;
     }
     .contribution-item {
-        grid-template-columns: minmax(160px, auto) 20px 1fr;
-    }
-    .contribution-item input.value {
-        width: 90px;
+        grid-template-columns: minmax(180px, auto) 20px 1fr;
     }
     .net-pay {
-        font-size: 1.2rem;
-        width: 80%;
-        max-width: 350px;
+        font-size: 1.4rem;
+    }
+    #save-button, #reset-button, #export-pdf {
+        font-size: 1rem;
+        width: 200px;
     }
 }
 
@@ -198,44 +228,49 @@ h1 {
 @media (max-width: 767px) {
     .container {
         padding: 15px;
-        max-height: none; /* Removed max-height to allow full content display */
         width: 100%;
         margin: 10px;
-        overflow-y: auto; /* Ensure container scrolls on overflow */
+        overflow-y: auto;
     }
     h1 {
-        font-size: 1.4rem;
-        margin-bottom: 20px;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
     }
-    .personal-info {
+    .personal-info label,
+    .gross-salary label {
         flex-direction: column;
-        gap: 10px;
+        align-items: flex-start;
+        margin-bottom: 10px;
     }
-    .personal-info label {
-        min-width: 0;
-        width: 100%;
-    }
-    .personal-info input, .personal-info select {
-        width: 100%;
+    .personal-info input,
+    .personal-info select,
+    .gross-salary input {
+        min-width: 150px;
         margin-left: 0;
+        margin-top: 5px;
+        width: 100%;
+    }
+    .section-box h2 {
+        font-size: 1.1rem;
     }
     .contributions {
         flex-direction: column;
-        gap: 15px;
-    }
-    .section-box, .contribution-box {
-        min-height: auto;
+        gap: 10px;
     }
     .contribution-item {
-        grid-template-columns: minmax(140px, auto) 20px 1fr;
+        grid-template-columns: minmax(120px, auto) 15px 1fr;
     }
     .contribution-item input.value {
         width: 80px;
     }
     .net-pay {
-        font-size: 1.1rem;
-        width: 85%;
-        max-width: 300px;
+        font-size: 1.2rem;
+        width: 90%;
+    }
+    #save-button, #reset-button, #export-pdf {
+        font-size: 0.9rem;
+        width: 180px;
+        margin: 8px auto;
     }
 }
 
@@ -244,24 +279,31 @@ h1 {
     .container {
         padding: 10px;
         border-radius: 8px;
-        overflow-y: auto; /* Ensure container scrolls on overflow */
     }
     h1 {
         font-size: 1.2rem;
     }
-    .personal-info label, .gross-salary label, .contribution-item {
-        font-size: 0.8rem;
+    .personal-info label,
+    .gross-salary label {
+        font-size: 0.9rem;
+    }
+    .personal-info input,
+    .personal-info select,
+    .gross-salary input {
+        min-width: 120px;
     }
     .contribution-item {
-        grid-template-columns: minmax(100px, auto) 15px 1fr;
+        grid-template-columns: minmax(100px, auto) 10px 1fr;
     }
     .contribution-item input.value {
         width: 70px;
     }
     .net-pay {
         font-size: 1rem;
-        width: 90%;
-        max-width: 250px;
+        width: 95%;
+    }
+    #save-button, #reset-button, #export-pdf {
+        font-size: 0.8rem;
+        width: 150px;
     }
 }
-
