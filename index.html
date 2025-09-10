@@ -6,10 +6,11 @@
     <title>Salary Calculator</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>MALAYSIA SALARY CALCULATOR (Less than 60)</h1>
+        <h1>MALAYSIA SALARY CALCULATOR</h1>
         <div class="personal-info">
             <label>Name: <input type="text" id="name" oninput="calculate()"></label>
             <label>IC: <input type="text" id="ic" oninput="calculate()"></label>
@@ -73,6 +74,8 @@
             <label>NET PAY SALARY (RM): <span id="net-pay">0.00</span></label>
         </div>
         <button id="save-button" onclick="saveToGoogleSheets()">Save to Google Sheets</button>
+        <button id="reset-button" onclick="resetForm()">Reset Form</button>
+        <button id="export-pdf" onclick="exportToPDF()">Export to PDF</button>
     </div>
 
     <script src="app.js"></script>
