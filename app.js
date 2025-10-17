@@ -618,25 +618,10 @@ function calculate() {
     let eis_employer_percent = gross > 0 ? (eis_employer / gross) * 100 : 0;
 
     // Display
-    document.getElementById('employee-epf').querySelector('.label').innerText = `EPF (${epf_employee_percent.toFixed(2)}% RM)`;
-    document.getElementById('employee-epf').querySelector('.value').innerText = epf_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-    document.getElementById('employee-socso').querySelector('.label').innerText = `SOCSO (${socso_employee_percent.toFixed(2)}% RM)`;
-    document.getElementById('employee-socso').querySelector('.value').innerText = socso_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-    document.getElementById('employee-eis').querySelector('.label').innerText = `SIP (${eis_employee_percent.toFixed(2)}% RM)`;
-    document.getElementById('employee-eis').querySelector('.value').innerText = eis_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-    document.getElementById('employer-epf').querySelector('.label').innerText = `EPF (${epf_employer_percent.toFixed(2)}% RM)`;
-    document.getElementById('employer-epf').querySelector('.value').innerText = epf_employer.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-    document.getElementById('employer-socso').querySelector('.label').innerText = `SOCSO (${socso_employer_percent.toFixed(2)}% RM)`;
-    document.getElementById('employer-socso').querySelector('.value').innerText = socso_employer.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-    document.getElementById('employer-eis').querySelector('.label').innerText = `SIP (${eis_employer_percent.toFixed(2)}% RM)`;
-    document.getElementById('employer-eis').querySelector('.value').innerText = eis_employer.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-    document.getElementById('pcb-input').value = calculated_pcb.toFixed(2);
+    document.getElementById('employee-epf-value').innerText = epf_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('employee-socso-value').innerText = socso_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('employee-eis-value').innerText = eis_employee.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('total-deductions').innerText = (epf_employee + socso_employee + eis_employee + calculated_pcb).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     computeNet();
 }
@@ -645,7 +630,24 @@ function computeNet() {
     let pcb = parseFloat(document.getElementById('pcb-input').value) || 0;
     let total_employee_deductions = epf_employee + socso_employee + eis_employee + pcb;
     net_salary = gross - total_employee_deductions;
-    document.getElementById('net-pay').innerText = net_salary.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    document.getElementById('net-pay').innerText = `RM ${net_salary.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    document.getElementById('total-deductions').innerText = total_employee_deductions.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function updateMonthYear() {
+    const dateInput = document.getElementById('date').value;
+    if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateInput)) {
+        const [day, month, year] = dateInput.split('/');
+        const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+        const monthIndex = parseInt(month, 10) - 1;
+        if (monthIndex >= 0 && monthIndex < 12) {
+            document.getElementById('month-year').innerText = `${monthNames[monthIndex]} ${year}`;
+        } else {
+            document.getElementById('month-year').innerText = '';
+        }
+    } else {
+        document.getElementById('month-year').innerText = '';
+    }
 }
 
 // Trigger initial calculation
@@ -659,6 +661,8 @@ function resetForm() {
     document.getElementById('basic').value = '';
     document.getElementById('ot').value = '';
     document.getElementById('pcb-input').value = '';
+    document.getElementById('date').value = '';
+    document.getElementById('month-year').innerText = '';
     calculate(); // Recalculate to reset displayed values
 }
 
@@ -706,39 +710,7 @@ function saveToGoogleSheets() {
     });
 }
 
-// Function to export to PDF with plain text
-function exportToPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const currentDate = new Date().toLocaleDateString('en-MY'); // e.g., 10/09/2025
-
-    const text = `
-MALAYSIA SALARY CALCULATOR
-
-Date                          : ${currentDate}
-Name                        : ${document.getElementById('name').value || ''}
-IC                              : ${document.getElementById('ic').value || ''}
-Age                           : ${document.getElementById('age').value === 'less' ? 'Less than 60' : '60 and above'}
-
-GROSS SALARY
-Basic Salary (RM)    : ${parseFloat(document.getElementById('basic').value) || 0}
-O.T. Salary (RM)      : ${parseFloat(document.getElementById('ot').value) || 0}
-Total (RM)                : ${gross.toFixed(2)}
-
-EMPLOYEE (WORKER)
-EPF (RM)                 : ${epf_employee.toFixed(2)}
-SOCSO (RM)           : ${socso_employee.toFixed(2)}
-SIP (RM)                  : ${eis_employee.toFixed(2)}
-PCB (RM)                : ${parseFloat(document.getElementById('pcb-input').value) || 0}
-
-EMPLOYER (BOSS)
-EPF (RM)                 : ${epf_employer.toFixed(2)}
-SOCSO (RM)           : ${socso_employer.toFixed(2)}
-SIP (RM)                  : ${eis_employer.toFixed(2)}
-
-NET PAY SALARY (RM) : ${net_salary.toFixed(2)}
-    `.trim();
-
-    doc.text(text, 10, 10); // Start text at top-left (10, 10)
-    doc.save('salary_record.pdf');
+// Function to print payslip
+function printPayslip() {
+    window.print();
 }
