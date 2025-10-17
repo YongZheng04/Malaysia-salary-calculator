@@ -6,76 +6,92 @@
     <title>Salary Calculator</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>MALAYSIA SALARY CALCULATOR</h1>
-        <div class="personal-info">
-            <label>Name: <input type="text" id="name" oninput="calculate()"></label>
-            <label>IC: <input type="text" id="ic" oninput="calculate()"></label>
-            <label>Age: <select id="age" onchange="calculate()">
-                <option value="less">Less than 60</option>
-                <option value="more">60 and above</option>
-            </select></label>
+        <div class="header">
+            <h1>KM YAP CRANE SERVICE</h1>
+            <input type="text" id="slip-number" placeholder="Enter Slip Number">
         </div>
-        <div class="section-box gross-salary">
-            <h2>GROSS SALARY</h2>
-            <label>Basic Salary (RM): <input type="number" id="basic" step="0.01" min="0" oninput="calculate()"></label>
-            <label>O.T. Salary (RM): <input type="number" id="ot" step="0.01" min="0" oninput="calculate()"></label>
+        <p class="address">No. 47, Jalan Ros Merah 1, Taman Ros Merah, 71800 Nilai, Negeri Sembilan.</p>
+        <p class="phone">Hand Phone: 012-2970387</p>
+        <div class="info-row">
+            <label>Name: <input type="text" id="name"></label>
+            <label>Date: <input type="text" id="date" placeholder="DD/MM/YYYY" oninput="updateMonthYear()"></label>
         </div>
-        <div class="total">
-            <label>Total (RM): <span id="total">0.00</span></label>
+        <div class="info-row">
+            <label>Position: <input type="text" id="position"></label>
+            <label>Payslip For (Month/Year): <span id="month-year"></span></label>
         </div>
-        <div class="contributions">
-            <div class="contribution-box">
-                <h2>EMPLOYEE (WORKER)</h2>
-                <div id="employee-epf" class="contribution-item">
-                    <span class="label"></span>
-                    <span class="colon">:</span>
-                    <span class="value"></span>
-                </div>
-                <div id="employee-socso" class="contribution-item">
-                    <span class="label"></span>
-                    <span class="colon">:</span>
-                    <span class="value"></span>
-                </div>
-                <div id="employee-eis" class="contribution-item">
-                    <span class="label"></span>
-                    <span class="colon">:</span>
-                    <span class="value"></span>
-                </div>
-                <div id="employee-pcb" class="contribution-item">
-                    <span class="label">PCB (RM)</span>
-                    <span class="colon">:</span>
-                    <input class="value" id="pcb-input" type="number" step="0.01" oninput="computeNet()">
-                </div>
-            </div>
-            <div class="contribution-box">
-                <h2>EMPLOYER (BOSS)</h2>
-                <div id="employer-epf" class="contribution-item">
-                    <span class="label"></span>
-                    <span class="colon">:</span>
-                    <span class="value"></span>
-                </div>
-                <div id="employer-socso" class="contribution-item">
-                    <span class="label"></span>
-                    <span class="colon">:</span>
-                    <span class="value"></span>
-                </div>
-                <div id="employer-eis" class="contribution-item">
-                    <span class="label"></span>
-                    <span class="colon">:</span>
-                    <span class="value"></span>
-                </div>
-            </div>
+        <div class="info-row">
+            <label>I/C No.: <input type="text" id="ic"></label>
+            <label>NET PAY: <span id="net-pay" class="display">RM 0.00</span></label>
         </div>
-        <div class="net-pay">
-            <label>NET PAY SALARY (RM): <span id="net-pay">0.00</span></label>
+        <div class="info-row">
+            <label>Payment Method: <input type="text" id="payment-method"></label>
         </div>
-        <button id="save-button" onclick="saveToGoogleSheets()">Save to Google Sheets</button>
-        <button id="reset-button" onclick="resetForm()">Reset Form</button>
-        <button id="export-pdf" onclick="exportToPDF()">Export to PDF</button>
+        <div class="tables">
+            <table class="earnings">
+                <thead>
+                    <tr>
+                        <th>Employee Earning</th>
+                        <th>RM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Basic Salary</td>
+                        <td><input type="number" id="basic" step="0.01" min="0" oninput="calculate()"></td>
+                    </tr>
+                    <tr>
+                        <td>Overtime</td>
+                        <td><input type="number" id="ot" step="0.01" min="0" oninput="calculate()"></td>
+                    </tr>
+                    <tr>
+                        <td>Total Earnings</td>
+                        <td><span id="total" class="display">0.00</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="deductions">
+                <thead>
+                    <tr>
+                        <th>Employee Deductions</th>
+                        <th>RM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EPF (11%)</td>
+                        <td><span id="employee-epf-value" class="display">0.00</span></td>
+                    </tr>
+                    <tr>
+                        <td>SOCSO</td>
+                        <td><span id="employee-socso-value" class="display">0.00</span></td>
+                    </tr>
+                    <tr>
+                        <td>SIP</td>
+                        <td><span id="employee-eis-value" class="display">0.00</span></td>
+                    </tr>
+                    <tr>
+                        <td>PCB</td>
+                        <td><input type="number" id="pcb-input" step="0.01" oninput="computeNet()"></td>
+                    </tr>
+                    <tr>
+                        <td>Total Deductions</td>
+                        <td><span id="total-deductions" class="display">0.00</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="approval">
+            APPROVED BY: ___________________                 RECEIVED BY: ___________________
+        </p>
+        <div class="buttons">
+            <button id="save-button" onclick="saveToGoogleSheets()">Save to Google Sheets</button>
+            <button id="reset-button" onclick="resetForm()">Reset Form</button>
+            <button id="export-pdf" onclick="printPayslip()">Print Payslip</button>
+        </div>
     </div>
 
     <script src="app.js"></script>
