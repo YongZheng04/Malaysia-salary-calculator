@@ -11,13 +11,13 @@
     <div class="container">
         <div class="header">
             <h1>KM YAP CRANE SERVICE</h1>
-            <input type="text" id="slip-number" placeholder="Enter Slip Number">
+            <input type="text" id="slip-number" placeholder="Enter Number">
         </div>
         <p class="address">No. 47, Jalan Ros Merah 1, Taman Ros Merah, 71800 Nilai, Negeri Sembilan.</p>
         <p class="phone">Hand Phone: 012-2970387</p>
         <div class="info-row">
             <label>Name: <input type="text" id="name"></label>
-            <label>Date: <input type="text" id="date" placeholder="DD/MM/YYYY" oninput="updateMonthYear()"></label>
+            <label>Date: <input type="text" id="date" placeholder="Example: 1/1/2025" oninput="updateMonthYear()"></label>
         </div>
         <div class="info-row">
             <label>Position: <input type="text" id="position"></label>
@@ -85,7 +85,7 @@
             </table>
         </div>
         <p class="approval">
-            APPROVED BY: ___________________                 RECEIVED BY: ___________________
+            APPROVED BY: ___________________________________________       RECEIVED BY: ___________________________________________
         </p>
         <div class="buttons">
             <button id="save-button" onclick="saveToGoogleSheets()">Save to Google Sheets</button>
